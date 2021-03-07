@@ -11,3 +11,6 @@ COVID Impact on Economy
 - 28 Mar: model fitting and training
 - 4 Apr: Sketch of Project Report and improve model accuracy (cross-validation and test set?)
 - 15 Apr: Final pruning and submission
+
+## Project Document
+- google drive: https://drive.google.com/drive/folders/19H7duQtVRfXw6vQj5aPwvBVXzKPVJH61

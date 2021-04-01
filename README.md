@@ -2,8 +2,8 @@
 An interpretable way of predicting the outcomes of basketball games.
 
 ## Data
-- match performance data of NBA regular games from Dec 2020 to Mar 2021 by teams
-- NBA Players performance data
+- match performance data of latest 1300 NBA regular games
+- NBA Players performance data of each match
 
 ## Timeline
 - 14 Mar: Raw data collected and cleaned
@@ -14,3 +14,6 @@ An interpretable way of predicting the outcomes of basketball games.
 
 ## Project Document
 - google drive: https://drive.google.com/drive/folders/19H7duQtVRfXw6vQj5aPwvBVXzKPVJH61
+
+## Reference
+- Football Match Prediction Using Machine Learning https://publications.lib.chalmers.se/records/fulltext/250411/250411.pdf

@@ -1,19 +1,20 @@
 ## Scope 
 An interpretable way of predicting the outcomes of basketball games.
 
+## Techniques:
+- Local Interpretable Model-agnostic Explanations
+- Bayesian Optimization
+
+## Results
+- To be updated
+
 ## Data
 - match performance data of latest 1300 NBA regular games
 - NBA Players performance data of each match
 
-## Timeline
-- 14 Mar: Raw data collected and cleaned
-- 21 Mar: data engineer (feature selection and remove corrupted data and outliers)
-- 28 Mar: model fitting and training (both training model and explaner (using LIME))
-- 4 Apr: Sketch of Project Report and improve model accuracy (cross-validation and test set?)
-- 15 Apr: Final pruning and submission
+## File Structure
+- `./data`: raw data, data cleaning and feature engineering scripts, and train/test data.
+- `./models`: The Neural Network, Support Vector Machine and Random Forest models.
 
-## Project Document
-- google drive: https://drive.google.com/drive/folders/19H7duQtVRfXw6vQj5aPwvBVXzKPVJH61
-
-## Reference
-- Football Match Prediction Using Machine Learning https://publications.lib.chalmers.se/records/fulltext/250411/250411.pdf
+## Project Report
+- google drive: https://docs.google.com/document/d/1x5PBGv2-Z_-7AouFGYkmPB-uxDgqf0xYfJamCGXiqn8/edit

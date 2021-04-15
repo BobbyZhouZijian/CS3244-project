@@ -15,7 +15,7 @@ from ax.service.managed_loop import optimize
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # global variables
-input_size = 5
+input_size = 45
 hidden_size1 = 64
 hidden_size2 = 32
 num_classes = 1
@@ -40,8 +40,8 @@ class CustomDataset:
         return self.X_train[idx], self.y_train[idx]
 
 # read in data
-train_raw_df = pd.read_csv('./df_train_standarized_5_columns.csv')
-test_raw_df = pd.read_csv('./df_test_standarized_5_columns.csv')
+train_raw_df = pd.read_csv('./df_train_standarized_45_columns.csv')
+test_raw_df = pd.read_csv('./df_test_standarized_45_columns.csv')
 
 
 # build network architecture

@@ -6,9 +6,6 @@ import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import KFold
 
-from ax.plot.contour import plot_contour
-from ax.plot.render import plot_config_to_html
-from ax.utils.report.render import render_report_elements
 from ax.service.managed_loop import optimize
 
 # configure device
@@ -135,69 +132,56 @@ def train_evaluate(parameterization):
     print(mean)
     return mean
 
-# Bayesian Optimization
-parameters=[
-    {'name': 'alpha', 'type': 'range', 'bounds': [0.01, 10.0], 'log_scale': True},
-    {'name': 'batch_size', 'type': 'choice', 'values': [4,8,16,32]},
-    {'name': 'dropout1', 'type': 'range', 'bounds': [0.1, 0.5]},
-    {'name': 'dropout2', 'type': 'range', 'bounds': [0.1, 0.5]},
-    {'name': 'lr', 'type': 'range', 'bounds': [1e-6, 0.5], 'log_scale': True},
-    {'name': 'step_size', 'type': 'range', 'bounds': [10,50]},
-    {'name': 'gamma', 'type': 'range', 'bounds': [1e-4, 0.5], 'log_scale': True},
-]
+def main():
+    # Bayesian Optimization
+    parameters=[
+        {'name': 'alpha', 'type': 'range', 'bounds': [0.01, 10.0], 'log_scale': True},
+        {'name': 'batch_size', 'type': 'choice', 'values': [4,8,16,32]},
+        {'name': 'dropout1', 'type': 'range', 'bounds': [0.1, 0.5]},
+        {'name': 'dropout2', 'type': 'range', 'bounds': [0.1, 0.5]},
+        {'name': 'lr', 'type': 'range', 'bounds': [1e-6, 0.5], 'log_scale': True},
+        {'name': 'step_size', 'type': 'range', 'bounds': [10,50]},
+        {'name': 'gamma', 'type': 'range', 'bounds': [1e-4, 0.5], 'log_scale': True},
+    ]
 
-best_params, values, experiment, model = optimize(
-    parameters=parameters,
-    evaluation_function=train_evaluate,
-    objective_name='accuracy',
-    total_trials=20,
-)
-
-# result on test set
-train_set = CustomDataset(train_raw_df)
-train_loader = torch.utils.data.DataLoader(
-    train_set,
-    batch_size=best_params.get('batch_size', batch_size),
-    shuffle=True
-)
-test_set = CustomDataset(test_raw_df)
-test_loader = torch.utils.data.DataLoader(
-    test_set,
-    batch_size=best_params.get('batch_size', batch_size),
-    shuffle=True
-)
-test_model = net_train(net=NeuralNet(best_params),
-                    train_loader=train_loader,
-                    parameters=best_params,
-                    device=device)
-test_res = evaluate(test_model, test_loader)
-print(f"Test Accuracy: {test_res}")
-
-
-'''
-Save all relavent information to local
-'''
-torch.save(test_model, './nn.pth')
-
-with open('./log', 'w') as outfile:
-    outfile.write('best params: ' + str(best_params) + '\n')
-    outfile.write('values on validation set: ' + str(values) + '\n')
-    outfile.write('result on test set: ' + str(test_res) + '\n')
-    outfile.close()
-
-# create plots
-lr_stepsize = plot_contour(model=model, param_x='lr', param_y='step_size', metric_name='accuracy')
-lr_gamma = plot_contour(model=model, param_x='lr', param_y='gamma', metric_name='accuracy')
-
-# create an Ax report
-with open('report.html', 'w') as outfile:
-    outfile.write(render_report_elements(
-        "lr_stepsize_report", 
-        html_elements=[plot_config_to_html(lr_stepsize)], 
-        header=False,)
+    best_params, values, experiment, model = optimize(
+        parameters=parameters,
+        evaluation_function=train_evaluate,
+        objective_name='accuracy',
+        total_trials=20,
     )
-    outfile.write(render_report_elements(
-        "lr_gamma_report", 
-        html_elements=[plot_config_to_html(lr_gamma)], 
-        header=False,)
+
+    # result on test set
+    train_set = CustomDataset(train_raw_df)
+    train_loader = torch.utils.data.DataLoader(
+        train_set,
+        batch_size=best_params.get('batch_size', batch_size),
+        shuffle=True
     )
+    test_set = CustomDataset(test_raw_df)
+    test_loader = torch.utils.data.DataLoader(
+        test_set,
+        batch_size=best_params.get('batch_size', batch_size),
+        shuffle=True
+    )
+    test_model = net_train(net=NeuralNet(best_params),
+                        train_loader=train_loader,
+                        parameters=best_params,
+                        device=device)
+    test_res = evaluate(test_model, test_loader)
+    print(f"Test Accuracy: {test_res}")
+
+
+    '''
+    Save all relavent information to local
+    '''
+    torch.save(test_model, './nn.pth')
+
+    with open('./log', 'w') as outfile:
+        outfile.write('best params: ' + str(best_params) + '\n')
+        outfile.write('values on validation set: ' + str(values) + '\n')
+        outfile.write('result on test set: ' + str(test_res) + '\n')
+        outfile.close()
+
+if __name__ == '__main__':
+    main()

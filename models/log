@@ -1,0 +1,3 @@
+best params: {'alpha': 0.26200650844000284, 'dropout1': 0.19677020495942169, 'dropout2': 0.14635147312807864, 'lr': 0.0008499695419042885, 'step_size': 50, 'gamma': 0.001695839577299003, 'batch_size': 64}
+values on validation set: ({'accuracy': 0.6078580767787518}, {'accuracy': {'accuracy': 4.04394887787083e-05}})
+result on test set: 0.6218905472636815

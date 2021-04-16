@@ -37,8 +37,8 @@ class CustomDataset:
         return self.X_train[idx], self.y_train[idx]
 
 # read in data
-train_raw_df = pd.read_csv('../data_feature_selection/without winning rate/standardized/df_train_standarized_45_columns.csv')
-test_raw_df = pd.read_csv('../data_feature_selection/without winning rate/standardized/df_test_standarized_45_columns.csv')
+train_raw_df = pd.read_csv('../data/df_train_standardized_45_columns.csv')
+test_raw_df = pd.read_csv('../data/df_test_standardized_45_columns.csv')
 
 
 # build network architecture
